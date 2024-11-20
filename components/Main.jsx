@@ -1,13 +1,26 @@
-import { Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+import LoginScreen from "../screens/LoginScreen";
+import ProductListScreen from "../screens/ProductListScreen";
+
+const Stack = createNativeStackNavigator();
 
 export function Main() {
-  const insets = useSafeAreaInsets();
   return (
-    <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
-      <Text style={{ color: "#fff" }}>
-        Open up App.js to start working on your app!
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ animation: "none" }}>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Products"
+          component={ProductListScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
