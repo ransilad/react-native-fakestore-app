@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const ProductListItem = ({ item }) => {
@@ -6,58 +6,57 @@ const ProductListItem = ({ item }) => {
 
   return (
     <Pressable
-      style={{
-        backgroundColor: "#1c1c1c",
-        borderRadius: 5,
-        marginBottom: 20,
-        flexDirection: "row",
-      }}
+      style={styles.container}
       onPress={() => navigation.navigate("ProductDetail", { product: item })}
     >
-      <View>
-        <Image
-          source={{ uri: item.image }}
-          style={{
-            width: 100,
-            height: 100,
-            borderTopLeftRadius: 5,
-            borderBottomLeftRadius: 5,
-          }}
-        />
+      <View style={styles.imageContainer}>
+        <Image source={{ uri: item.image }} style={styles.image} />
       </View>
-      <View
-        style={{
-          padding: 15,
-          flex: 1,
-          flexDirection: "column",
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 16,
-            color: "#e0e0e0",
-            fontWeight: "300",
-            flex: 1,
-            lineHeight: 20,
-            letterSpacing: 0.5,
-          }}
-          numberOfLines={2}
-        >
+      <View style={styles.details}>
+        <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text>
-        <Text
-          style={{
-            fontSize: 16,
-            color: "#fff",
-            textAlign: "right",
-            fontWeight: "500",
-          }}
-        >
-          ${item.price}
-        </Text>
+        <Text style={styles.price}>${item.price}</Text>
       </View>
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#1c1c1c",
+    borderRadius: 5,
+    marginBottom: 20,
+    flexDirection: "row",
+  },
+  imageContainer: {
+    position: "relative",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  details: {
+    padding: 15,
+    flex: 1,
+    flexDirection: "column",
+  },
+  title: {
+    fontSize: 16,
+    color: "#e0e0e0",
+    fontWeight: "300",
+    flex: 1,
+    lineHeight: 20,
+    letterSpacing: 0.5,
+  },
+  price: {
+    fontSize: 16,
+    color: "#fff",
+    textAlign: "right",
+    fontWeight: "500",
+  },
+});
 
 export default ProductListItem;
