@@ -6,12 +6,14 @@ import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 import { loginAPI } from "../lib/api";
 import useFetchAPI from "../hooks/useFetchAPI";
+import useStore from "../context/store";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
   const { fetchAPI, isLoading, result, error } = useFetchAPI();
+  const { setToken } = useStore();
 
   const handleLogin = () => {
     Keyboard.dismiss();
@@ -21,11 +23,8 @@ const LoginScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (result) {
-      console.log(result);
-      // navigation.navigate("Products");
-    }
-  }, [result]);
+    if (result) setToken(result.token);
+  }, [result, setToken]);
 
   const isDisabled = () => isLoading || !user || !password;
 
@@ -44,22 +43,8 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry={true}
       />
       {error && (
-        <View
-          style={{
-            marginBottom: 20,
-            backgroundColor: "#8c2626",
-            borderRadius: 5,
-            padding: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: "#fff",
-              fontSize: 16,
-              fontWeight: "200",
-              textAlign: "center",
-            }}
-          >
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
             Credenciales incorrectas, favor intentar nuevamente
           </Text>
         </View>
@@ -84,5 +69,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginTop: 20,
     marginBottom: 30,
+  },
+  errorContainer: {
+    marginBottom: 20,
+    backgroundColor: "#8c2626",
+    borderRadius: 5,
+    padding: 10,
+  },
+  errorText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "300",
+    textAlign: "center",
   },
 });
