@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import useStore from "../context/store";
 import ExitIcon from "./icons/ExitIcon";
@@ -10,15 +10,14 @@ const Navbar = () => {
   const { top } = useSafeAreaInsets();
   const { logout } = useStore();
   const navigation = useNavigation();
-  const route = useRoute();
 
   return (
     <View style={{ ...styles.container, paddingTop: top + 20 }}>
       <View style={styles.header}>
-        {route.name !== "Products" && (
+        {navigation.canGoBack() && (
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.navigate("Products")}
+            onPress={() => navigation.goBack()}
           >
             <BackIcon style={{ color: "#fff" }} />
           </TouchableOpacity>

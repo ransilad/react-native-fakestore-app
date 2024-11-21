@@ -1,4 +1,10 @@
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useEffect } from "react";
 
 import ProductListItem from "../components/ProductListItem";
@@ -7,7 +13,7 @@ import Container from "../components/shared/Container";
 import useFetchAPI from "../hooks/useFetchAPI";
 import { getProductsAPI } from "../lib/api";
 
-const ProductListScreen = ({ navigation }) => {
+const ProductListScreen = () => {
   const { fetchAPI, isLoading, result, error } = useFetchAPI();
 
   useEffect(() => {
@@ -19,16 +25,7 @@ const ProductListScreen = ({ navigation }) => {
 
   return (
     <Container noPaddingTop={true}>
-      <Text
-        style={{
-          color: "#fff",
-          fontSize: 25,
-          marginBottom: 20,
-          textAlign: "right",
-        }}
-      >
-        Listado de productos
-      </Text>
+      <Text style={styles.styles}>Listado de productos</Text>
 
       {isLoading && (
         <View style={{ marginBlock: 20 }}>
@@ -54,3 +51,12 @@ const ProductListScreen = ({ navigation }) => {
 };
 
 export default ProductListScreen;
+
+const styles = StyleSheet.create({
+  title: {
+    color: "#fff",
+    fontSize: 25,
+    marginBottom: 20,
+    textAlign: "right",
+  },
+});
