@@ -8,3 +8,13 @@ export const loginAPI = (username, password) => {
     },
   };
 };
+
+export const getProductsAPI = () => {
+  return {
+    url: "https://fakestoreapi.com/products",
+    options: {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    },
+  };
+};

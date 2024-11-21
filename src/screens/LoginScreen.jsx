@@ -1,12 +1,13 @@
-import { Keyboard, StyleSheet, Text, View } from "react-native";
+import { Keyboard, StyleSheet, Text } from "react-native";
 import { useEffect, useState } from "react";
 
-import Container from "../components/Container";
+import Container from "../components/shared/Container";
 import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
 import { loginAPI } from "../lib/api";
 import useFetchAPI from "../hooks/useFetchAPI";
 import useStore from "../context/store";
+import ErrorAlert from "../components/shared/ErrorAlert";
 
 const LoginScreen = () => {
   const [user, setUser] = useState("");
@@ -29,7 +30,7 @@ const LoginScreen = () => {
   const isDisabled = () => isLoading || !user || !password;
 
   return (
-    <Container isCentered={true}>
+    <Container>
       <Text style={styles.title}>Iniciar Sesión</Text>
       <Input
         placeholder="Ingresa tu usuario"
@@ -43,11 +44,7 @@ const LoginScreen = () => {
         secureTextEntry={true}
       />
       {error && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>
-            Credenciales incorrectas, favor intentar nuevamente
-          </Text>
-        </View>
+        <ErrorAlert description="Credenciales incorrectas, favor intentar nuevamente" />
       )}
       <Button
         title="Entrar"
@@ -69,17 +66,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginTop: 20,
     marginBottom: 30,
-  },
-  errorContainer: {
-    marginBottom: 20,
-    backgroundColor: "#8c2626",
-    borderRadius: 5,
-    padding: 10,
-  },
-  errorText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "300",
-    textAlign: "center",
   },
 });

@@ -1,15 +1,54 @@
-import React from "react";
-import { Button, Text } from "react-native";
+import { useEffect } from "react";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
-import Container from "../components/Container";
-import useStore from "../context/store";
+import Container from "../components/shared/Container";
+import useFetchAPI from "../hooks/useFetchAPI";
+import { getProductsAPI } from "../lib/api";
+import ErrorAlert from "../components/shared/ErrorAlert";
+import ProductListItem from "../components/ProductListItem";
 
 const ProductListScreen = ({ navigation }) => {
-  const { logout } = useStore();
+  const { fetchAPI, isLoading, result, error } = useFetchAPI();
+
+  useEffect(() => {
+    const { url, options } = getProductsAPI();
+    fetchAPI(url, options);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <Container>
-      <Text style={{ color: "#fff" }}>ProductListScreen 2</Text>
-      <Button title="Entrar" onPress={() => logout()} />
+    <Container noPaddingTop={true}>
+      <Text
+        style={{
+          color: "#fff",
+          fontSize: 25,
+          marginBottom: 20,
+          textAlign: "right",
+        }}
+      >
+        Listado de productos
+      </Text>
+
+      {isLoading && (
+        <View style={{ marginBlock: 20 }}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      )}
+
+      {error && (
+        <ErrorAlert description="Se ha producido un error, inténtalo más tarde" />
+      )}
+
+      {result && (
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={result}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <ProductListItem item={item} />}
+          />
+        </View>
+      )}
     </Container>
   );
 };

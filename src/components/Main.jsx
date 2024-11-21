@@ -5,7 +5,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/LoginScreen";
 import ProductListScreen from "../screens/ProductListScreen";
 import useStore from "../context/store";
-import Container from "./Container";
+import Container from "./shared/Container";
+import { Text, TouchableOpacity } from "react-native";
+import Navbar from "./Navbar";
+import ProductDetailScreen from "../screens/ProductDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +38,16 @@ export function Main() {
             <Stack.Screen
               name="Products"
               component={ProductListScreen}
-              options={{ headerShown: false }}
+              options={{
+                header: () => <Navbar />,
+              }}
+            />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetailScreen}
+              options={{
+                header: () => <Navbar />,
+              }}
             />
           </>
         )}
