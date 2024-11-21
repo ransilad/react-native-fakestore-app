@@ -1,34 +1,31 @@
-import { Keyboard, StyleSheet, Text } from "react-native";
-import { useState } from "react";
+import { Keyboard, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
 
 import Container from "../components/Container";
 import Input from "../components/shared/Input";
 import Button from "../components/shared/Button";
-import { login } from "../lib/api";
+import { loginAPI } from "../lib/api";
+import useFetchAPI from "../hooks/useFetchAPI";
 
 const LoginScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { fetchAPI, isLoading, result, error } = useFetchAPI();
 
   const handleLogin = () => {
     Keyboard.dismiss();
-    setIsLoading(true);
-    // navigation.navigate("Products");
 
-    login(user, password)
-      .then((data) => {
-        console.log("Pasa OK");
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log("Pasa ERROR");
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    const { url, options } = loginAPI(user, password);
+    fetchAPI(url, options);
   };
+
+  useEffect(() => {
+    if (result) {
+      console.log(result);
+      // navigation.navigate("Products");
+    }
+  }, [result]);
 
   const isDisabled = () => isLoading || !user || !password;
 
@@ -46,6 +43,27 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry={true}
       />
+      {error && (
+        <View
+          style={{
+            marginBottom: 20,
+            backgroundColor: "#8c2626",
+            borderRadius: 5,
+            padding: 10,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 16,
+              fontWeight: "200",
+              textAlign: "center",
+            }}
+          >
+            Credenciales incorrectas, favor intentar nuevamente
+          </Text>
+        </View>
+      )}
       <Button
         title="Entrar"
         onPress={handleLogin}
