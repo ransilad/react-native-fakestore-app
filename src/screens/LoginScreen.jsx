@@ -1,13 +1,13 @@
 import { Keyboard, StyleSheet, Text } from "react-native";
 import { useEffect, useState } from "react";
 
-import Container from "../components/shared/Container";
-import Input from "../components/shared/Input";
-import Button from "../components/shared/Button";
-import { loginAPI } from "../lib/api";
-import useFetchAPI from "../hooks/useFetchAPI";
-import useStore from "../context/store";
 import ErrorAlert from "../components/shared/ErrorAlert";
+import Container from "../components/shared/Container";
+import Button from "../components/shared/Button";
+import useFetchAPI from "../hooks/useFetchAPI";
+import Input from "../components/shared/Input";
+import useStore from "../context/store";
+import { loginAPI } from "../lib/api";
 
 const LoginScreen = () => {
   const [user, setUser] = useState("");

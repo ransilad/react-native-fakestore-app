@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import { Image, Pressable, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductListItem = ({ item }) => {
   const navigation = useNavigation();

@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View } from "react-native";
 
 const Container = ({ children, noPaddingTop = false }) => {
   const insets = useSafeAreaInsets();

@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+
 import Container from "../components/shared/Container";
 
 const ProductDetailScreen = () => {

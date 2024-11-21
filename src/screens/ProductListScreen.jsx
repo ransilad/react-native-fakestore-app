@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { useEffect } from "react";
 
+import ProductListItem from "../components/ProductListItem";
+import ErrorAlert from "../components/shared/ErrorAlert";
 import Container from "../components/shared/Container";
 import useFetchAPI from "../hooks/useFetchAPI";
 import { getProductsAPI } from "../lib/api";
-import ErrorAlert from "../components/shared/ErrorAlert";
-import ProductListItem from "../components/ProductListItem";
 
 const ProductListScreen = ({ navigation }) => {
   const { fetchAPI, isLoading, result, error } = useFetchAPI();

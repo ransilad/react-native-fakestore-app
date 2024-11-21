@@ -1,14 +1,13 @@
-import { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { useEffect } from "react";
 
-import LoginScreen from "../screens/LoginScreen";
-import ProductListScreen from "../screens/ProductListScreen";
-import useStore from "../context/store";
-import Container from "./shared/Container";
-import { Text, TouchableOpacity } from "react-native";
-import Navbar from "./Navbar";
 import ProductDetailScreen from "../screens/ProductDetailScreen";
+import ProductListScreen from "../screens/ProductListScreen";
+import LoginScreen from "../screens/LoginScreen";
+import Container from "./shared/Container";
+import useStore from "../context/store";
+import Navbar from "./Navbar";
 
 const Stack = createNativeStackNavigator();
 
